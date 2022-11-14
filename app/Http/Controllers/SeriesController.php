@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\SeriesCreated;
 use App\Events\SeriesDestroyed;
-use App\Http\Requests\SeriesFormRequest;
+use App\Http\Requests\SeriesRequest;
 use App\Models\Series;
 use App\Repositories\SeriesRepository;
 use Illuminate\Http\Request;
@@ -29,7 +29,7 @@ class SeriesController extends Controller
         return view('series.create');
     }
 
-    public function store(SeriesFormRequest $request)
+    public function store(SeriesRequest $request)
     {
         $coverPath = $request->file('cover')?->store('series_cover', 'public');
 
@@ -53,7 +53,7 @@ class SeriesController extends Controller
         return view('series.edit', compact('series'));
     }
 
-    public function update(Series $series, SeriesFormRequest $request)
+    public function update(Series $series, SeriesRequest $request)
     {
         $series->fill($request->all());
         $series->save();
